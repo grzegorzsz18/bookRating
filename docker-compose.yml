@@ -1,0 +1,34 @@
+version: '3'
+services:
+  config-service:
+    build:
+      context: ./ConfigurationService
+    ports:
+      - "8088:8088"
+
+  discovery-service:
+    build:
+      context: ./DiscoveryService
+    ports:
+      - "8061:8061"
+    links:
+      - config-service
+
+  gateway-service:
+    build:
+      context: ./GatewayService
+    ports:
+      - "8060:8060"
+    links:
+      - config-service
+      - discovery-service
+      - user-service
+
+  user-service:
+    build:
+      context: ./UserService
+    ports:
+      - "9090:9090"
+    links:
+      - config-service
+      - discovery-service
