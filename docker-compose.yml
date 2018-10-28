@@ -32,3 +32,25 @@ services:
     links:
       - config-service
       - discovery-service
+
+  authorization-service:
+    build:
+      context: ./AuthorizationService
+    ports:
+      - "8099:8099"
+    links:
+      - config-service
+      - discovery-service
+    depends_on:
+      - authorization-database
+
+  authorization-database:
+    build:
+      context: .
+      dockerfile: MySQLDockerfile
+    environment:
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - DATABASE_PORT=3306

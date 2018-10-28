@@ -6,16 +6,30 @@ eureka:
     serviceUrl:
       defaultZone: http://discovery-service:8061/eureka/
 
-spring:
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-      - id: user-service
-        uri: lb://user-service
-        predicates:
-        - Path=/userservice/**
-        filters:
-        - RewritePath=/userservice/(?<path>.*), /$\{path}
+zuul:
+  routes:
+    user-service:
+      path: /userservice/**
+      sensitiveHeaders:
+      serviceId: user-service
+    uaa:
+      path: /uaa/**
+      sensitiveHeaders:
+      serviceId: auth-server
+
+
+
+#to
+#  security:
+#    user:
+#      name: root
+#      password: pswd
+#security:
+#    oauth2:
+#      client:
+#        accessTokenUri: http://authorization-service:8099/uua/oauth/token
+#        userAuthorizationUri: http://authorization-service:8099/uua/oauth/authorize
+#        clientAuthenticationScheme: form
+#      resource:
+#        userInfoUri: http://authorization-service:8099/uaa/user
+#        preferTokenInfo: false
