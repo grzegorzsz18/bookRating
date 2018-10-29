@@ -1,4 +1,4 @@
-package com.scheduler.security;
+package com.scheduler.security.config;
 
 
 import javax.sql.DataSource;
@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -19,13 +20,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // @Autowired
     // private DataSource dataSource;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-//		http.sessionManagement().
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+////		http.sessionManagement().
 //		http.authorizeRequests().antMatchers("/**").permitAll();
-        http.authorizeRequests().anyRequest().authenticated();
-//		and().formLogin().loginPage("/login").permitAll().and().httpBasic().disable();
-    }
+//        http.authorizeRequests().anyRequest().permitAll();
+////		and().formLogin().loginPage("/login").permitAll().and().httpBasic().disable();
+//    }
 
     // @Override
     // public void configure(AuthenticationManagerBuilder auth) throws Exception
@@ -33,5 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // auth.jdbcAuthentication().dataSource(dataSource);
     // auth.inMemoryAuthentication().withUser("root").password("password").roles("USER");
     // }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/**");
+    }
 
 }

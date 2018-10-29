@@ -8,6 +8,10 @@ spring:
     url: jdbc:mysql://authorization-database:3306/userAuthorization?useSSL=false
     username: root
     password: password
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
 
 eureka:
   client:
