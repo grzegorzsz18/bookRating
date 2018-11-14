@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: auth-server
+    name: auth-service
   datasource:
     url: jdbc:mysql://authorization-database:3306/userAuthorization?useSSL=false
     username: root

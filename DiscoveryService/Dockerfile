@@ -6,4 +6,4 @@ ADD target/discovery*.jar app.jar
 
 EXPOSE 8061
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom -Djava.net.preferIPv4Stack=true","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/app.jar"]

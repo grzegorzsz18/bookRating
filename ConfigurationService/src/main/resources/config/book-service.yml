@@ -1,0 +1,17 @@
+server:
+  port: 8098
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8061/eureka/
+
+spring:
+  data:
+    mongodb:
+      host: book-database
+      port: 27017
+      authentication-database: admin
+      username: root
+      password: password
+      database: booksDb

@@ -3,14 +3,14 @@ services:
   config-service:
     build:
       context: ./ConfigurationService
-    ports:
-      - "8088:8088"
+#    ports:
+#      - "8088:8088"
 
   discovery-service:
     build:
       context: ./DiscoveryService
-    ports:
-      - "8061:8061"
+#    ports:
+#      - "8061:8061"
     links:
       - config-service
 
@@ -22,22 +22,24 @@ services:
     links:
       - config-service
       - discovery-service
-      - user-service
+      - book-service
 
-  user-service:
+  book-service:
     build:
-      context: ./UserService
-    ports:
-      - "9090:9090"
+      context: ./BookService
+#    ports:
+#      - "8098:8098"
     links:
       - config-service
       - discovery-service
+    depends_on:
+      - book-database
 
   authorization-service:
     build:
       context: ./AuthorizationService
-    ports:
-      - "8099:8099"
+#    ports:
+#      - "8099:8099"
     links:
       - config-service
       - discovery-service
@@ -47,10 +49,19 @@ services:
   authorization-database:
     build:
       context: .
-      dockerfile: MySQLDockerfile
+      dockerfile: AuthDbDockerfile
     environment:
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - DATABASE_PORT=3306
+
+  book-database:
+    image: mongo:latest
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=adminBooks
+#      - MONGO_INITDB_ROOT_PASSWORD=password
+#      - MONGO_INITDB_DATABASE=admin
+    ports:
+      - "27017:27017"

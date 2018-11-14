@@ -1,8 +1,10 @@
 package com.scheduler.security.service;
 
-import com.scheduler.security.entity.User;
-import com.scheduler.security.entity.dto.UserCredentialsDTO;
-import com.scheduler.security.entity.dto.UserDTO;
+import com.scheduler.security.converters.UserConverter;
+import com.scheduler.security.converters.UserDTOConverter;
+import com.scheduler.security.domain.User;
+import com.scheduler.security.domain.dto.UserCredentialsDTO;
+import com.scheduler.security.domain.dto.UserDTO;
 import com.scheduler.security.exception.UserAlreadyExistsException;
 import com.scheduler.security.repository.UserRepositoryCRUD;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDTO addNewUser(UserCredentialsDTO userDTO){
-        this.userRepository.getByLogin(userDTO.getLogin()).ifPresent(u -> {
-            throw new UserAlreadyExistsException(new UserDTO(u));
+    public UserDTO addNewUser(UserCredentialsDTO userCredentialsDTO){
+        this.userRepository.getByLogin(userCredentialsDTO.getLogin()).ifPresent((User u) -> {
+            throw new UserAlreadyExistsException(UserDTOConverter.userToUserDTO(u));
         });
-        return new UserDTO(this.userRepository.save(new User(userDTO)));
+        return UserDTOConverter.userToUserDTO(
+                this.userRepository.save(UserConverter.userCredientialsDTOtoUser(userCredentialsDTO)));
     }
 }

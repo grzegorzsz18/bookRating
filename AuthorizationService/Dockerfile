@@ -6,4 +6,4 @@ ADD target/auth*.jar app.jar
 
 EXPOSE 8099
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom -Djava.net.preferIPv4Stack=true","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/app.jar"]

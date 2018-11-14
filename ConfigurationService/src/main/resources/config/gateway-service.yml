@@ -9,13 +9,13 @@ eureka:
 zuul:
   routes:
     user-service:
-      path: /userservice/**
+      path: /book/**
       sensitiveHeaders:
-      serviceId: user-service
+      serviceId: book-service
     uaa:
       path: /uaa/**
       sensitiveHeaders:
-      serviceId: auth-server
+      serviceId: auth-service
 
 
 
