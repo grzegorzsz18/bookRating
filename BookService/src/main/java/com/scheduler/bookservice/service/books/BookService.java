@@ -6,5 +6,5 @@ import java.io.IOException;
 
 public interface BookService {
 
-    BookDTO saveBook(BookDTO book) throws IOException;
+    BookDTO saveBook(BookDTO book);
 }

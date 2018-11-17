@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties
 @ConfigurationProperties
 @Data
-public class Config {
+public class ConfigReader {
 
     private String applicationKey;
     private String applicationCx;

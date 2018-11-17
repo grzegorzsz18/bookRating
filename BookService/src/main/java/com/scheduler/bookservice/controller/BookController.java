@@ -1,7 +1,7 @@
 package com.scheduler.bookservice.controller;
 
 import com.scheduler.bookservice.domain.BookDTO;
-import com.scheduler.bookservice.service.books.BookServiceImpl;
+import com.scheduler.bookservice.service.books.implementations.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class BookController {
     }
 
     @PutMapping
-    public ResponseEntity saveBook(@RequestBody BookDTO book) throws IOException {
+    public ResponseEntity saveBook(@RequestBody BookDTO book) {
         return new ResponseEntity<>(this.bookServiceImpl.saveBook(book), HttpStatus.CREATED);
     }
 
