@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 public class BookserviceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BookserviceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BookserviceApplication.class, args);
+    }
 }
