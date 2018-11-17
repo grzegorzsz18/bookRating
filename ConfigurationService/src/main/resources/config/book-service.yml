@@ -15,3 +15,7 @@ spring:
       username: root
       password: password
       database: booksDb
+
+applicationKey: AIzaSyBrT9VTZN1q2YtQ9mwiFiv3HMaeAmVmthM
+applicationCx: 003630389706661019147:i5a1vmvqv4m
+connectionTimeout: 100000

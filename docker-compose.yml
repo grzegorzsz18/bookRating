@@ -9,8 +9,8 @@ services:
   discovery-service:
     build:
       context: ./DiscoveryService
-#    ports:
-#      - "8061:8061"
+    ports:
+      - "8061:8061"
     links:
       - config-service
 
