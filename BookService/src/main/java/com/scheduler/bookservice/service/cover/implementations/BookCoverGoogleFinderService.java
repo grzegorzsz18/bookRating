@@ -2,7 +2,6 @@ package com.scheduler.bookservice.service.cover.implementations;
 
 import com.google.api.services.customsearch.model.Result;
 import com.scheduler.bookservice.domain.Book;
-import com.scheduler.bookservice.domain.BookDTO;
 import com.scheduler.bookservice.service.cover.BookCover;
 import com.scheduler.bookservice.service.cover.BookCoverFinderService;
 import org.springframework.stereotype.Service;
@@ -22,12 +21,12 @@ public class BookCoverGoogleFinderService implements BookCoverFinderService {
     }
 
     @Override
-    public BookCover findBookCover(BookDTO book) throws IOException {
+    public BookCover findBookCover(Book book) throws IOException {
         List<Result> resultsLst = booksCoverURLBuilder.searchURLForBook(book);
         String url = this.choseURLForBook(resultsLst);
         return BookCover.builder()
                 .image(booksCoverDownloader.downloadImageFromURL(url))
-                .title(book.getTitle())
+                .book(book)
                 .build();
     }
 

@@ -1,6 +1,6 @@
 package com.scheduler.bookservice.service.cover.implementations;
 
-import com.scheduler.bookservice.domain.BookDTO;
+import com.scheduler.bookservice.domain.Book;
 import com.scheduler.bookservice.repository.BooksCoverRepository;
 import com.scheduler.bookservice.service.cover.BookCover;
 import com.scheduler.bookservice.service.cover.BookCoverFinderService;
@@ -21,7 +21,7 @@ public class BookCoverServiceImpl implements BookCoverService {
     }
 
     @Override
-    public void saveCoverForBook(BookDTO book) {
+    public void saveCoverForBook(Book book) {
         try {
             BookCover bookCover = bookCoverFinderService.findBookCover(book);
             booksCoverRepository.saveBookCover(bookCover);
