@@ -34,6 +34,9 @@ services:
       - discovery-service
     depends_on:
       - book-database
+    volumes:
+       - /home/grzegorz/Documents/covers:/covers
+
 
   authorization-service:
     build:
@@ -59,9 +62,9 @@ services:
 
   book-database:
     image: mongo:latest
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=adminBooks
-#      - MONGO_INITDB_ROOT_PASSWORD=password
-#      - MONGO_INITDB_DATABASE=admin
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=admin
     ports:
       - "27017:27017"

@@ -16,7 +16,19 @@ zuul:
       path: /uaa/**
       sensitiveHeaders:
       serviceId: auth-service
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
 
+ribbon:
+   ReadTimeout: 30000
+hystrix:
+  command:
+    default:
+      execution:
+          isolation:
+             thread:
+                timeoutInMilliseconds: 90000
 
 
 #to

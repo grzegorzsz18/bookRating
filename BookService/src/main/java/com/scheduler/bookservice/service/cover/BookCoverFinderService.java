@@ -1,9 +1,9 @@
 package com.scheduler.bookservice.service.cover;
 
-import com.scheduler.bookservice.domain.BookDTO;
+import com.scheduler.bookservice.domain.Book;
 
 import java.io.IOException;
 
 public interface BookCoverFinderService {
-    BookCover findBookCover(BookDTO book) throws IOException;
+    BookCover findBookCover(Book book) throws IOException;
 }

@@ -11,6 +11,7 @@ public class BookDTOConverter {
     public static BookDTO bookToBookDTO(Book book) {
         return BookDTO.builder()
                 .title(book.getTitle())
+                .author(book.getAuthor())
                 .build();
     }
 }
