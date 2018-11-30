@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookCoverGoogleFinderService implements BookCoverFinderService {
@@ -21,13 +22,16 @@ public class BookCoverGoogleFinderService implements BookCoverFinderService {
     }
 
     @Override
-    public BookCover findBookCover(Book book) throws IOException {
+    public Optional<BookCover> findBookCover(Book book) throws IOException {
         List<Result> resultsLst = booksCoverURLBuilder.searchURLForBook(book);
-        String url = this.choseURLForBook(resultsLst);
-        return BookCover.builder()
-                .image(booksCoverDownloader.downloadImageFromURL(url))
-                .book(book)
-                .build();
+        if (resultsLst != null) {
+            String url = this.choseURLForBook(resultsLst);
+            return Optional.of(BookCover.builder()
+                    .image(booksCoverDownloader.downloadImageFromURL(url))
+                    .book(book)
+                    .build());
+        }
+        return Optional.empty();
     }
 
     private String choseURLForBook(List<Result> urlList) {

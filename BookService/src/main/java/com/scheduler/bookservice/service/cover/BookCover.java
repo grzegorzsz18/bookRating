@@ -13,4 +13,9 @@ import lombok.NoArgsConstructor;
 public class BookCover {
     byte[] image;
     Book book;
+    String confirmationLink;
+
+    public static BookCover empty(){
+        return new BookCover();
+    }
 }

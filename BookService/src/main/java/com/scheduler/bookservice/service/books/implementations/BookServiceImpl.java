@@ -7,6 +7,7 @@ import com.scheduler.bookservice.domain.BookDTO;
 import com.scheduler.bookservice.exceptions.BookAlreadyExistsException;
 import com.scheduler.bookservice.repository.BookCRUDrepository;
 import com.scheduler.bookservice.service.books.BookService;
+import com.scheduler.bookservice.service.cover.BookCover;
 import com.scheduler.bookservice.service.cover.BookCoverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +25,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO saveBook(BookDTO book) {
+    public BookCover saveBook(BookDTO book) {
         if (bookRepository.getByTitle(book.getTitle()).size() > 0) {
             throw new BookAlreadyExistsException(book.getTitle());
         }
         Book savedBook = bookRepository.save(BookConverter.bookDTOtoBook(book));
-        bookCoverService.saveCoverForBook(savedBook);
-        return BookDTOConverter.bookToBookDTO(savedBook);
+        return bookCoverService.getProposedBookCover(savedBook);
     }
 }

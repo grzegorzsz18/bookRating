@@ -1,10 +1,9 @@
 package com.scheduler.bookservice.service.books;
 
 import com.scheduler.bookservice.domain.BookDTO;
-
-import java.io.IOException;
+import com.scheduler.bookservice.service.cover.BookCover;
 
 public interface BookService {
 
-    BookDTO saveBook(BookDTO book);
+    BookCover saveBook(BookDTO book);
 }

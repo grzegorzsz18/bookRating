@@ -4,5 +4,7 @@ import com.scheduler.bookservice.domain.Book;
 
 public interface BookCoverService {
 
-    void saveCoverForBook(Book book);
+    BookCover getProposedBookCover(Book book);
+
+    void confirmBookCover(String id, String uri);
 }
