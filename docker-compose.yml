@@ -35,7 +35,8 @@ services:
     depends_on:
       - book-database
     volumes:
-       - /home/grzegorz/Documents/covers:/covers
+       - /home/grzegorz/Documents/parked_covers:/parked_covers
+       - /home/grzegorz/Documents/saved_covers:/saved_covers
 
 
   authorization-service:
