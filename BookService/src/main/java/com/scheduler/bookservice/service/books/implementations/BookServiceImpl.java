@@ -1,7 +1,5 @@
 package com.scheduler.bookservice.service.books.implementations;
 
-import com.scheduler.bookservice.converters.BookConverter;
-import com.scheduler.bookservice.converters.BookDTOConverter;
 import com.scheduler.bookservice.domain.Book;
 import com.scheduler.bookservice.domain.BookDTO;
 import com.scheduler.bookservice.exceptions.BookAlreadyExistsException;
@@ -29,7 +27,7 @@ public class BookServiceImpl implements BookService {
         if (bookRepository.getByTitle(book.getTitle()).size() > 0) {
             throw new BookAlreadyExistsException(book.getTitle());
         }
-        Book savedBook = bookRepository.save(BookConverter.bookDTOtoBook(book));
+        Book savedBook = bookRepository.save(Book.from(book));
         return bookCoverService.getProposedBookCover(savedBook);
     }
 }

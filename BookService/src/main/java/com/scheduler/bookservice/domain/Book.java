@@ -16,4 +16,11 @@ public class Book {
     private String id;
     private String title;
     private String author;
+
+    public static Book from(BookDTO bookDTO){
+        return Book.builder()
+                .author(bookDTO.getAuthor())
+                .title(bookDTO.getTitle())
+                .build();
+    }
 }

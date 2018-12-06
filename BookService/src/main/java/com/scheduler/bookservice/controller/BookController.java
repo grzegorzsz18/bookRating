@@ -4,6 +4,7 @@ import com.scheduler.bookservice.domain.BookDTO;
 import com.scheduler.bookservice.service.books.BookService;
 import com.scheduler.bookservice.service.books.implementations.BookServiceImpl;
 import com.scheduler.bookservice.service.cover.BookCoverService;
+import com.scheduler.bookservice.utils.ConfirmationUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class BookController {
     }
 
     @PostMapping(path = "confirmationCover/{id}")
-    public ResponseEntity confirmCover(@PathVariable("id") String id, @RequestBody String uri){
+    public ResponseEntity confirmCover(@PathVariable("id") String id, @RequestBody ConfirmationUrl uri){
         bookCoverService.confirmBookCover(id, uri);
         return new ResponseEntity(HttpStatus.CREATED);
     }

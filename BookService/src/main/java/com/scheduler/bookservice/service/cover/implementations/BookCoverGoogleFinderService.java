@@ -4,6 +4,9 @@ import com.google.api.services.customsearch.model.Result;
 import com.scheduler.bookservice.domain.Book;
 import com.scheduler.bookservice.service.cover.BookCover;
 import com.scheduler.bookservice.service.cover.BookCoverFinderService;
+import com.scheduler.bookservice.utils.ConfirmationUrl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -13,6 +16,7 @@ import java.util.Optional;
 @Service
 public class BookCoverGoogleFinderService implements BookCoverFinderService {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(BookCoverGoogleFinderService.class);
     private final BooksCoverURLBuilder booksCoverURLBuilder;
     private final BooksCoverDownloader booksCoverDownloader;
 
@@ -25,7 +29,8 @@ public class BookCoverGoogleFinderService implements BookCoverFinderService {
     public Optional<BookCover> findBookCover(Book book) throws IOException {
         List<Result> resultsLst = booksCoverURLBuilder.searchURLForBook(book);
         if (resultsLst != null) {
-            String url = this.choseURLForBook(resultsLst);
+            ConfirmationUrl url = this.choseURLForBook(resultsLst);
+            LOGGER.info("Find book url {}", url);
             return Optional.of(BookCover.builder()
                     .image(booksCoverDownloader.downloadImageFromURL(url))
                     .book(book)
@@ -34,8 +39,8 @@ public class BookCoverGoogleFinderService implements BookCoverFinderService {
         return Optional.empty();
     }
 
-    private String choseURLForBook(List<Result> urlList) {
-        return urlList.get(0).getLink();
+    private ConfirmationUrl choseURLForBook(List<Result> urlList) {
+        return ConfirmationUrl.from(urlList.get(0).getLink());
     }
 }
 

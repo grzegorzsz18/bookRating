@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.awt.image.BufferedImage;
+
 @Builder
 @Data
 @NoArgsConstructor
@@ -18,4 +20,5 @@ public class BookCover {
     public static BookCover empty(){
         return new BookCover();
     }
+
 }
