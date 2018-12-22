@@ -4,7 +4,7 @@ import com.google.api.services.customsearch.model.Result;
 import com.scheduler.bookservice.domain.Book;
 import com.scheduler.bookservice.service.cover.BookCover;
 import com.scheduler.bookservice.service.cover.BookCoverFinderService;
-import com.scheduler.bookservice.utils.ConfirmationUrl;
+import com.scheduler.bookservice.utils.BookImageUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,8 +28,8 @@ public class BookCoverGoogleFinderService implements BookCoverFinderService {
     @Override
     public Optional<BookCover> findBookCover(Book book) throws IOException {
         List<Result> resultsLst = booksCoverURLBuilder.searchURLForBook(book);
-        if (resultsLst != null) {
-            ConfirmationUrl url = this.choseURLForBook(resultsLst);
+        if (resultsLst != null && !resultsLst.isEmpty()) {
+            BookImageUrl url = this.choseURLForBook(resultsLst);
             LOGGER.info("Find book url {}", url);
             return Optional.of(BookCover.builder()
                     .image(booksCoverDownloader.downloadImageFromURL(url))
@@ -39,8 +39,8 @@ public class BookCoverGoogleFinderService implements BookCoverFinderService {
         return Optional.empty();
     }
 
-    private ConfirmationUrl choseURLForBook(List<Result> urlList) {
-        return ConfirmationUrl.from(urlList.get(0).getLink());
+    private BookImageUrl choseURLForBook(List<Result> urlList) {
+        return urlList.isEmpty()? BookImageUrl.empty() : BookImageUrl.from(urlList.get(0).getLink());
     }
 }
 

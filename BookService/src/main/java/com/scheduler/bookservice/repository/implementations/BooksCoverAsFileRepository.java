@@ -24,8 +24,12 @@ public class BooksCoverAsFileRepository implements BooksCoverRepository {
     }
 
     @Override
-    public BookCover readBookCover(Book book) {
-        return null;
+    public BookCover readBookCover(Book book) throws IOException {
+        File fi = new File(SAVE_COVER + book.getId());
+        return BookCover.builder()
+                .book(book)
+                .image(Files.readAllBytes(fi.toPath()))
+                .build();
     }
 
     @Override

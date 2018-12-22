@@ -1,6 +1,6 @@
 package com.scheduler.bookservice.service.cover.implementations;
 
-import com.scheduler.bookservice.utils.ConfirmationUrl;
+import com.scheduler.bookservice.utils.BookImageUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class BooksCoverDownloader {
 
     private final Logger LOGGER = LoggerFactory.getLogger(BooksCoverDownloader.class);
 
-    byte[] downloadImageFromURL(ConfirmationUrl inputUrl) {
+    byte[] downloadImageFromURL(BookImageUrl inputUrl) {
         byte[] response = new byte[0];
         try {
             URL url = new URL(inputUrl.getUrl());

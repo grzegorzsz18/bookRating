@@ -5,7 +5,7 @@ import com.scheduler.bookservice.repository.BooksCoverRepository;
 import com.scheduler.bookservice.service.cover.BookCover;
 import com.scheduler.bookservice.service.cover.BookCoverFinderService;
 import com.scheduler.bookservice.service.cover.BookCoverService;
-import com.scheduler.bookservice.utils.ConfirmationUrl;
+import com.scheduler.bookservice.utils.BookImageUrl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -47,7 +47,7 @@ public class BookCoverServiceImpl implements BookCoverService {
     }
 
     @Override
-    public void confirmBookCover(String id, ConfirmationUrl url) {
+    public void confirmBookCover(String id, BookImageUrl url) {
         if (url.isNotEmpty()) {
             this.saveBook(id, url);
         } else{
@@ -55,7 +55,7 @@ public class BookCoverServiceImpl implements BookCoverService {
         }
     }
 
-    private void saveBook(String id, ConfirmationUrl url) {
+    private void saveBook(String id, BookImageUrl url) {
         getBookCoverFromUri(url).ifPresent((BookCover book) -> {
             try {
                 book.setBook(Book.builder()
@@ -78,7 +78,7 @@ public class BookCoverServiceImpl implements BookCoverService {
         }
     }
 
-    private Optional<BookCover> getBookCoverFromUri(ConfirmationUrl uri) {
+    private Optional<BookCover> getBookCoverFromUri(BookImageUrl uri) {
         return Optional.of(BookCover.builder()
                 .image(this.booksCoverDownloader.downloadImageFromURL(uri))
                 .build());
@@ -87,6 +87,7 @@ public class BookCoverServiceImpl implements BookCoverService {
 
     private BookCover addConfirmationUri(BookCover bookCover) {
         String uri = confirmationUriCoverBuilder.buildUri(bookCover);
+        LOGGER.info("generated confirmation uri {}", uri);
         bookCover.setConfirmationLink(uri);
         return bookCover;
     }

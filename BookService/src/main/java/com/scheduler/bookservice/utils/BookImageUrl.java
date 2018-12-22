@@ -10,14 +10,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ConfirmationUrl {
+public class BookImageUrl {
     private String url;
 
     public boolean isNotEmpty() {
         return url != null && !url.isEmpty();
     }
 
-    public static ConfirmationUrl from(String url){
-        return ConfirmationUrl.builder().url(url).build();
+    public static BookImageUrl empty(){
+        return new BookImageUrl();
+    }
+
+    public static BookImageUrl from(String url){
+        return BookImageUrl.builder().url(url).build();
     }
 }

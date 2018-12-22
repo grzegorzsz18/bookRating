@@ -9,7 +9,7 @@ public interface BooksCoverRepository {
 
     void saveBookCover(BookCover book) throws IOException;
 
-    BookCover readBookCover(Book book);
+    BookCover readBookCover(Book book) throws IOException;
 
     void parkBookCover(BookCover bookCover) throws IOException;
 
