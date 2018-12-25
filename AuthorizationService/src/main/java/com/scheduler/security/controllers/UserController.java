@@ -1,14 +1,14 @@
 package com.scheduler.security.controllers;
 
+import com.scheduler.security.domain.User;
 import com.scheduler.security.domain.dto.UserCredentialsDTO;
+import com.scheduler.security.domain.dto.UserDTO;
 import com.scheduler.security.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.authentication.UserCredentials;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -24,6 +24,11 @@ public class UserController {
     @PutMapping
     public ResponseEntity addNewUser(@RequestBody UserCredentialsDTO userCredentials) {
         return new ResponseEntity<>(this.userServiceImpl.addNewUser(userCredentials), HttpStatus.CREATED);
+    }
+
+    @PostMapping
+    public ResponseEntity getUser(@RequestBody UserCredentialsDTO userCredentials) {
+        return new ResponseEntity<>(this.userServiceImpl.getUser(userCredentials), HttpStatus.OK);
     }
 
 }

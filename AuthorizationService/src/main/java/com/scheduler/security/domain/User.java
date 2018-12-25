@@ -1,5 +1,6 @@
 package com.scheduler.security.domain;
 
+import com.scheduler.security.domain.dto.UserCredentialsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +24,11 @@ public class User implements Serializable {
     private Long id;
     private String login;
     private String password;
+
+    public static User from(UserCredentialsDTO userCredentialsDTO) {
+        return User.builder()
+                .login(userCredentialsDTO.getLogin())
+                .password(userCredentialsDTO.getPassword())
+                .build();
+    }
 }
