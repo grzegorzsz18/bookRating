@@ -16,12 +16,11 @@ import java.util.Optional;
 @Service
 public class BookCoverServiceImpl implements BookCoverService {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(BookCoverServiceImpl.class);
-    private final BookCoverFinderService bookCoverFinderService;
-    private final BooksCoverRepository booksCoverRepository;
-    private final ConfirmationUriCoverBuilder confirmationUriCoverBuilder;
-    private final BooksCoverDownloader booksCoverDownloader;
-
+    private Logger LOGGER = LoggerFactory.getLogger(BookCoverServiceImpl.class);
+    private BookCoverFinderService bookCoverFinderService;
+    private BooksCoverRepository booksCoverRepository;
+    private ConfirmationUriCoverBuilder confirmationUriCoverBuilder;
+    private BooksCoverDownloader booksCoverDownloader;
 
     public BookCoverServiceImpl(BookCoverFinderService bookCoverFinderService,
                                 BooksCoverRepository booksCoverRepository,
@@ -50,7 +49,7 @@ public class BookCoverServiceImpl implements BookCoverService {
     public void confirmBookCover(String id, BookImageUrl url) {
         if (url.isNotEmpty()) {
             this.saveBook(id, url);
-        } else{
+        } else {
             this.unparkBook(id);
         }
     }
