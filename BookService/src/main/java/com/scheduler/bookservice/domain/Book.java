@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Book {
 
     private String id;
+    private String userId;
     private String title;
     private String author;
 
@@ -25,6 +26,7 @@ public class Book {
         return Book.builder()
                 .author(bookDTO.getAuthor())
                 .title(bookDTO.getTitle())
+                .userId(bookDTO.getUserId())
                 .build();
     }
 }

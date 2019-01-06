@@ -11,4 +11,5 @@ public interface BookCRUDrepository extends MongoRepository<Book, String> {
 
     List<Book> getByTitle(String title);
 
+    List<Book> getByUserId(String userId);
 }

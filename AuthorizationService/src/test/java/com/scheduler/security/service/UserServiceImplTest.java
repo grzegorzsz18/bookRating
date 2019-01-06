@@ -27,7 +27,7 @@ public class UserServiceImplTest {
     public void shouldGetUser() {
         final String password = "password";
         final String login = "login";
-        final long id = 1;
+        final String id = "1";
 
         User user = User.builder()
                 .id(id)
@@ -49,7 +49,7 @@ public class UserServiceImplTest {
         final String correctPassword = "password";
         final String wrongPassword = "wrongPassword";
         final String login = "login";
-        final long id = 1;
+        final String id = "1";
 
         User user = User.builder()
                 .id(id)

@@ -6,4 +6,5 @@ import com.scheduler.security.domain.dto.UserDTO;
 public interface UserService {
 
     UserDTO addNewUser(UserCredentialsDTO user);
+    String getIdByLogin(String login);
 }

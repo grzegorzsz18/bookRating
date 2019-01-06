@@ -26,6 +26,11 @@ public class UserServiceImpl implements UserService {
         return UserDTO.from(this.userRepository.save(User.from(userCredentialsDTO)));
     }
 
+    @Override
+    public String getIdByLogin(String login) {
+        return this.userRepository.getByLogin(login).map(User::getId).orElse("");
+    }
+
     public UserDTO getUser(UserCredentialsDTO userCredentials) {
         return UserDTO.from(this.userRepository.getByLogin(userCredentials.getLogin())
                 .filter(user -> user.getPassword().equals(userCredentials.getPassword()))

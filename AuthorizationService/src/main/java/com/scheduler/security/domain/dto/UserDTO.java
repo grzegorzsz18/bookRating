@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDTO {
 
-    private Long id;
+    private String id;
     private String login;
 
     public static UserDTO from(User u) {

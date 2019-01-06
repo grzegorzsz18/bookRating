@@ -31,4 +31,9 @@ public class UserController {
         return new ResponseEntity<>(this.userServiceImpl.getUser(userCredentials), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/id/{login}")
+    public ResponseEntity getIdByLogin(@PathVariable String login) {
+        return new ResponseEntity<>(this.userServiceImpl.getIdByLogin(login), HttpStatus.OK);
+    }
+
 }

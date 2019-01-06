@@ -28,9 +28,14 @@ public class BookController {
     }
 
     @PostMapping(path = "confirmationCover/{id}")
-    public ResponseEntity confirmCover(@PathVariable("id") String id, @RequestBody BookImageUrl uri){
+    public ResponseEntity confirmCover(@PathVariable("id") String id, @RequestBody BookImageUrl uri) {
         bookCoverService.confirmBookCover(id, uri);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "login/{login}")
+    public ResponseEntity getByUserLogin(@PathVariable("login") String login) {
+        return new ResponseEntity<>(bookServiceImpl.getBooksByUserLogin(login), HttpStatus.OK);
     }
 
 }
