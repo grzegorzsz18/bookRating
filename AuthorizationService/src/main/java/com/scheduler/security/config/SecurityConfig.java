@@ -1,39 +1,37 @@
 package com.scheduler.security.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 
 @Configuration
-@EnableWebSecurity
-@Order(-10)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends AuthorizationServerConfigurerAdapter {
 
-    // @Autowired
-    // private DataSource dataSource;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-////		http.sessionManagement().
-//		http.authorizeRequests().antMatchers("/**").permitAll();
-//        http.authorizeRequests().anyRequest().permitAll();
-////		and().formLogin().loginPage("/login").permitAll().and().httpBasic().disable();
-//    }
+    @Qualifier("userDetailsServiceBean")
+    @Autowired
+    UserDetailsService userDetailsService;
 
-    // @Override
-    // public void configure(AuthenticationManagerBuilder auth) throws Exception
-    // {
-    // auth.jdbcAuthentication().dataSource(dataSource);
-    // auth.inMemoryAuthentication().withUser("root").password("password").roles("USER");
-    // }
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/**");
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory()
+                .withClient("client")
+                .secret("{noop}secred")
+                .authorizedGrantTypes("password", "client_credentials")
+                .scopes("webclient", "mobileclient");
     }
 
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+        endpoints.authenticationManager(authenticationManager)
+                .userDetailsService(userDetailsService);
+    }
 }

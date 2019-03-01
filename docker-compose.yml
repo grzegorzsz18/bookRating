@@ -42,8 +42,8 @@ services:
   authorization-service:
     build:
       context: ./AuthorizationService
-#    ports:
-#      - "8099:8099"
+    ports:
+      - "8099:8099"
     links:
       - config-service
       - discovery-service

@@ -14,15 +14,9 @@ import java.security.Principal;
 @EnableAuthorizationServer
 @EnableDiscoveryClient
 @EnableResourceServer
-@RestController
 public class AuthServer {
 
     public static void main(String[] args) {
         SpringApplication.run(AuthServer.class, args);
-    }
-
-    @RequestMapping("/user")
-    public Principal user(Principal user) {
-        return user;
     }
 }

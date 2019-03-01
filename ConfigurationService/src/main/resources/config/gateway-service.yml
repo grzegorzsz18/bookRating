@@ -15,7 +15,7 @@ zuul:
     uaa:
       path: /uaa/**
       sensitiveHeaders:
-      serviceId: auth-service
+      serviceId: authorization-service
   host:
     connect-timeout-millis: 60000
     socket-timeout-millis: 60000
@@ -27,21 +27,16 @@ hystrix:
     default:
       execution:
           isolation:
-             thread:
+              thread:
                 timeoutInMilliseconds: 90000
 
 
-#to
-#  security:
-#    user:
-#      name: root
-#      password: pswd
-#security:
-#    oauth2:
-#      client:
-#        accessTokenUri: http://authorization-service:8099/uua/oauth/token
-#        userAuthorizationUri: http://authorization-service:8099/uua/oauth/authorize
-#        clientAuthenticationScheme: form
-#      resource:
-#        userInfoUri: http://authorization-service:8099/uaa/user
-#        preferTokenInfo: false
+
+security:
+  oauth2:
+    client:
+      accessTokenUri: http://authorization-service:8099/oauth/token
+      client-id: client
+      client-secret: secred
+    resource:
+      userInfoUri: http://authorization-service:8099/user
